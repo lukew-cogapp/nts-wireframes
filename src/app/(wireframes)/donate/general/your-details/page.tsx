@@ -122,7 +122,7 @@ function DonateContent() {
 									{loggedIn ? (
 										<input
 											readOnly
-											defaultValue="lukehmu@gmail.com"
+											defaultValue="lukew@cogapp.com"
 											className="border border-gray-300 bg-gray-200 px-3 py-2 font-mono text-body text-gray-700"
 										/>
 									) : (
