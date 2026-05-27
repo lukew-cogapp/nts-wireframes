@@ -40,18 +40,72 @@ export interface WireframePage {
 
 export const pages: WireframePage[] = [
 	{
-		id: "example",
-		title: "Example Page",
-		description:
-			"Starter wireframe demonstrating every available template component",
-		status: "wip",
+		id: "join",
+		title: "/join",
+		description: "Plan + gift picker. Simplified to Adult plan only.",
+		status: "review",
 	},
 	{
-		id: "content-page",
-		title: "Content Page",
+		id: "join/payment-method",
+		title: "/join/payment-method",
+		description: "Annual card, Annual DD, Monthly DD.",
+		status: "review",
+	},
+	{
+		id: "join/your-details",
+		title: "/join/your-details",
+		description: "Your details + interests panel (new).",
+		status: "review",
+	},
+	{
+		id: "join/address",
+		title: "/join/address",
+		description: "Address, consents, T&Cs.",
+		status: "review",
+	},
+	{
+		id: "join/payment",
+		title: "/join/payment",
+		description: "Card or Direct Debit, Gift Aid.",
+		status: "review",
+	},
+	{
+		id: "join/thank-you",
+		title: "/join/thank-you",
+		description: "Order confirmation and next steps.",
+		status: "review",
+	},
+	{
+		id: "donate/general/amount",
+		title: "/donate/general/amount",
+		description: "Amount picker and frequency.",
+		status: "review",
+	},
+	{
+		id: "donate/general/your-details",
+		title: "/donate/general/your-details",
 		description:
-			"Long-form informational page with breadcrumb, body sections, and sidebar links",
-		status: "wip",
+			"Your details + optional My Trust account creation + interests panel (new).",
+		status: "review",
+	},
+	{
+		id: "donate/general/address",
+		title: "/donate/general/address",
+		description: "Address and consents.",
+		status: "review",
+	},
+	{
+		id: "donate/general/payment",
+		title: "/donate/general/payment",
+		description: "Card or Direct Debit.",
+		status: "review",
+	},
+	{
+		id: "sign-up",
+		title: "/sign-up",
+		description:
+			"Standalone My Trust account signup with interests panel (current state).",
+		status: "review",
 	},
 	{
 		id: "feature-status",
@@ -67,15 +121,6 @@ export const pages: WireframePage[] = [
 			"Information architecture, page hierarchy and navigation structure",
 		status: "wip",
 	},
-	{
-		// Utility page: reachable via footer (auto-derived from `pages`),
-		// intentionally omitted from the top-bar `navigation` tree below.
-		id: "accessibility-statement",
-		title: "Accessibility Statement",
-		description:
-			"Conformance level, features in place, known gaps, and feedback contact",
-		status: "wip",
-	},
 ];
 
 // ── Navigation tree ──────────────────────────────────────────────────
@@ -89,11 +134,31 @@ export interface NavNode {
 export const navigation: NavNode[] = [
 	{ label: "Home", href: "/" },
 	{
-		label: "Pages",
+		label: "Checkout flows",
 		href: "",
 		children: [
-			{ label: "Example", href: "/example" },
-			{ label: "Content Page", href: "/content-page" },
+			{ label: "/join", href: "/join" },
+			{ label: "/join/payment-method", href: "/join/payment-method" },
+			{ label: "/join/your-details", href: "/join/your-details" },
+			{ label: "/join/address", href: "/join/address" },
+			{ label: "/join/payment", href: "/join/payment" },
+			{
+				label: "/donate/general/amount",
+				href: "/donate/general/amount",
+			},
+			{
+				label: "/donate/general/your-details",
+				href: "/donate/general/your-details",
+			},
+			{
+				label: "/donate/general/address",
+				href: "/donate/general/address",
+			},
+			{
+				label: "/donate/general/payment",
+				href: "/donate/general/payment",
+			},
+			{ label: "/sign-up", href: "/sign-up" },
 		],
 	},
 	{ label: "Feature Status", href: "/feature-status" },

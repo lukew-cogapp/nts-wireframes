@@ -39,35 +39,74 @@ const issue = linear;
  * inside <ScopePage id="homepage">.
  */
 export const scope: Record<string, ScopeEntry> = {
-	// ── Example page ───────────────────────────────────────────────────
-	"example/Hero": { mvp: true, issueUrl: issue("EX-1") },
-	"example/Key stats": { mvp: true, issueUrl: issue("EX-2") },
-	"example/Features": {
+	// ── Join step pages ────────────────────────────────────────────────
+	"join/Plan": { mvp: true },
+	"join/payment-method/Progress": { mvp: true },
+	"join/payment-method/Purchasing summary": { mvp: true },
+	"join/payment-method/Benefits": { mvp: true },
+	"join/payment-method/Gift toggle": { mvp: true },
+	"join/payment-method/Options": { mvp: true },
+	"join/address/Progress": { mvp: true },
+	"join/address/Address heading": { mvp: true },
+	"join/address/Your address": { mvp: true },
+	"join/address/Subscribe to emails": { mvp: true },
+	"join/address/Terms": { mvp: true },
+	"join/payment/Progress": { mvp: true },
+	"join/payment/Payment fields": { mvp: true },
+	"join/payment/Gift Aid": { mvp: true },
+	"join/payment/Order summary": { mvp: true },
+	"join/thank-you/Progress": { mvp: true },
+	"join/thank-you/Order summary": { mvp: true },
+	"join/thank-you/Next steps": { mvp: true },
+
+	// ── Donate step pages ──────────────────────────────────────────────
+	"donate/general/amount/Progress": { mvp: true },
+	"donate/general/amount/Amount": { mvp: true },
+	"donate/general/address/Progress": { mvp: true },
+	"donate/general/address/Address": { mvp: true },
+	"donate/general/address/Consents": { mvp: true },
+	"donate/general/payment/Progress": { mvp: true },
+	"donate/general/payment/Payment fields": { mvp: true },
+	"donate/general/payment/Order summary": { mvp: true },
+
+	// ── Join checkout ──────────────────────────────────────────────────
+	"join/your-details/Progress": { mvp: true },
+	"join/your-details/Your details": { mvp: true, issueUrl: issue("NTS-201") },
+	"join/your-details/My Trust account": {
 		mvp: true,
-		note: "Content TBD",
-		issueUrl: issue("EX-3"),
+		note: "Password block. Guest only.",
+		issueUrl: issue("NTS-202"),
 	},
-	"example/Related links": { mvp: true, issueUrl: issue("EX-4") },
-	"example/Contact form": {
-		mvp: false,
-		note: "Form integration TBD",
-		issueUrl: issue("EX-5"),
-	},
-
-	// ── Content page ───────────────────────────────────────────────────
-	"content-page/Page header": { mvp: true, issueUrl: issue("CP-1") },
-	"content-page/Body": { mvp: true, issueUrl: issue("CP-2") },
-	"content-page/Sidebar": {
-		mvp: false,
-		note: "Related content feed TBD",
-		issueUrl: issue("CP-3"),
+	"join/your-details/Interests panel": {
+		mvp: true,
+		note: "New block. Hidden when logged-in user already has interests set. Reuses _interests.twig.",
+		issueUrl: issue("NTS-203"),
 	},
 
-	// ── Accessibility statement ────────────────────────────────────────
-	"accessibility-statement/Statement": { mvp: true, issueUrl: issue("AS-1") },
-	"accessibility-statement/Features": { mvp: true, issueUrl: issue("AS-2") },
-	"accessibility-statement/Known gaps": { mvp: true, issueUrl: issue("AS-3") },
-	"accessibility-statement/Feedback": { mvp: true, issueUrl: issue("AS-4") },
+	// ── Donate checkout ────────────────────────────────────────────────
+	"donate/general/your-details/Progress": { mvp: true },
+	"donate/general/your-details/Your details": {
+		mvp: true,
+		issueUrl: issue("NTS-211"),
+	},
+	"donate/general/your-details/My Trust account": {
+		mvp: true,
+		note: "Optional on donate. Marked (optional).",
+		issueUrl: issue("NTS-212"),
+	},
+	"donate/general/your-details/Interests panel": {
+		mvp: true,
+		note: "Revealed once password entered, or shown standalone when logged in without interests. Skipped for guest-only donors per brief.",
+		issueUrl: issue("NTS-213"),
+	},
+
+	// ── My Trust registration ──────────────────────────────────────────
+	"sign-up/Account details": { mvp: true },
+	"sign-up/Interests panel": {
+		mvp: true,
+		note: "Reference. Existing implementation. Join and Donate match this pattern.",
+	},
+	"sign-up/Consents": { mvp: true },
 };
 
 export function getAnnotation(
@@ -81,9 +120,12 @@ export function getAnnotation(
 /** A page is MVP if it has at least one section marked mvp: true. */
 export function isPageMvp(pageId: string): boolean {
 	const prefix = `${pageId}/`;
-	return Object.entries(scope).some(
-		([key, entry]) => key.startsWith(prefix) && entry.mvp,
-	);
+	return Object.entries(scope).some(([key, entry]) => {
+		if (!key.startsWith(prefix)) return false;
+		const label = key.slice(prefix.length);
+		if (label.includes("/")) return false;
+		return entry.mvp;
+	});
 }
 
 /** Flat scope row, derived from the keyed `scope` map. */
@@ -96,7 +138,7 @@ export interface ScopeRow extends ScopeEntry {
 /** All scope entries as flat rows, parsing the `pageId/label` key. */
 export function listScopeRows(): ScopeRow[] {
 	return Object.entries(scope).map(([key, entry]) => {
-		const slash = key.indexOf("/");
+		const slash = key.lastIndexOf("/");
 		return {
 			pageId: slash >= 0 ? key.slice(0, slash) : key,
 			label: slash >= 0 ? key.slice(slash + 1) : "",
