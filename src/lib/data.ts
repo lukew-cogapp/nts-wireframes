@@ -108,6 +108,19 @@ export const pages: WireframePage[] = [
 		status: "review",
 	},
 	{
+		id: "gift-aid",
+		title: "/gift-aid",
+		description:
+			"Standalone Gift Aid declaration. No login, prefilled from email link.",
+		status: "wip",
+	},
+	{
+		id: "gift-aid/thank-you",
+		title: "/gift-aid/thank-you",
+		description: "Gift Aid confirmation, opted in or out.",
+		status: "wip",
+	},
+	{
 		id: "feature-status",
 		title: "Feature Status",
 		description:
@@ -159,6 +172,14 @@ export const navigation: NavNode[] = [
 				href: "/donate/general/payment",
 			},
 			{ label: "/sign-up", href: "/sign-up" },
+		],
+	},
+	{
+		label: "Gift Aid",
+		href: "",
+		children: [
+			{ label: "/gift-aid", href: "/gift-aid" },
+			{ label: "/gift-aid/thank-you", href: "/gift-aid/thank-you" },
 		],
 	},
 	{ label: "Feature Status", href: "/feature-status" },

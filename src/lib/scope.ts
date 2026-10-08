@@ -107,6 +107,36 @@ export const scope: Record<string, ScopeEntry> = {
 		note: "Reference. Existing implementation. Join and Donate match this pattern.",
 	},
 	"sign-up/Consents": { mvp: true },
+
+	// ── Gift Aid standalone form ───────────────────────────────────────
+	"gift-aid/Hero": {
+		mvp: true,
+		note: "NTS to supply copy explaining why to opt in.",
+		issueUrl: issue("NTS-1659"),
+	},
+	"gift-aid/Your details": {
+		mvp: true,
+		note: "No login. Query params prefill fields for tailored email links. Signed-in users get My Trust details.",
+		issueUrl: issue("NTS-1659"),
+	},
+	"gift-aid/Prefill notice": { mvp: true },
+	"gift-aid/Home address": {
+		mvp: true,
+		note: "HMRC needs house number + postcode. Postcode lookup cuts free-text typos.",
+	},
+	"gift-aid/Contact reference": {
+		mvp: true,
+		note: "contactId from the link, stored with the submission so the CSV import matches the CRM record. Blank for walk-ups.",
+	},
+	"gift-aid/Declaration": {
+		mvp: true,
+		note: "Radio not checkbox so opt-outs are captured. No default selection. Submission timestamp is the declaration date.",
+	},
+	"gift-aid/thank-you/Confirmation": {
+		mvp: true,
+		note: "NTS to supply thank-you copy.",
+	},
+	"gift-aid/thank-you/Next steps": { mvp: true },
 };
 
 export function getAnnotation(
