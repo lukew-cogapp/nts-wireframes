@@ -84,21 +84,33 @@ export const scope: Record<string, ScopeEntry> = {
 	},
 
 	// ── Donate checkout ────────────────────────────────────────────────
-	"donate/general/your-details/Progress": { mvp: true },
-	"donate/general/your-details/Your details": {
-		mvp: true,
-		issueUrl: issue("NTS-211"),
-	},
-	"donate/general/your-details/My Trust account": {
-		mvp: true,
-		note: "Optional on donate. Marked (optional).",
-		issueUrl: issue("NTS-212"),
-	},
-	"donate/general/your-details/Interests panel": {
-		mvp: true,
-		note: "Revealed once password entered, or shown standalone when logged in without interests. Skipped for guest-only donors per brief.",
-		issueUrl: issue("NTS-213"),
-	},
+	// General, appeal and theme donations share one your-details template.
+	...Object.fromEntries(
+		[
+			"donate/general/your-details",
+			"donate/appeals/example-appeal/your-details",
+			"donate/example-theme/your-details",
+		].flatMap((page) => [
+			[`${page}/Progress`, { mvp: true }],
+			[`${page}/Your details`, { mvp: true, issueUrl: issue("NTS-211") }],
+			[
+				`${page}/My Trust account`,
+				{
+					mvp: true,
+					note: "Optional on donate. Marked (optional).",
+					issueUrl: issue("NTS-212"),
+				},
+			],
+			[
+				`${page}/Interests panel`,
+				{
+					mvp: true,
+					note: "Shown only when logged in without interests. Guests get no ask, including those creating an account here, per brief.",
+					issueUrl: issue("NTS-213"),
+				},
+			],
+		]),
+	),
 
 	// ── My Trust registration ──────────────────────────────────────────
 	"sign-up/Account details": { mvp: true },

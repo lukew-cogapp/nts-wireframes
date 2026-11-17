@@ -89,6 +89,20 @@ export const pages: WireframePage[] = [
 		status: "review",
 	},
 	{
+		id: "donate/appeals/example-appeal/your-details",
+		title: "/donate/appeals/example-appeal/your-details",
+		description:
+			"Appeal donation. Same your-details step and interests rules as general.",
+		status: "review",
+	},
+	{
+		id: "donate/example-theme/your-details",
+		title: "/donate/example-theme/your-details",
+		description:
+			"Theme donation. Same your-details step and interests rules as general.",
+		status: "review",
+	},
+	{
 		id: "donate/general/address",
 		title: "/donate/general/address",
 		description: "Address and consents.",
@@ -162,6 +176,14 @@ export const navigation: NavNode[] = [
 			{
 				label: "/donate/general/your-details",
 				href: "/donate/general/your-details",
+			},
+			{
+				label: "/donate/appeals/example-appeal/your-details",
+				href: "/donate/appeals/example-appeal/your-details",
+			},
+			{
+				label: "/donate/example-theme/your-details",
+				href: "/donate/example-theme/your-details",
 			},
 			{
 				label: "/donate/general/address",
